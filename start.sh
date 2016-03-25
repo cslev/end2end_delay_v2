@@ -69,7 +69,9 @@ sleep 1s
 echo -e "${bold}Client mode started in a new xterm${none}"
 xterm -geometry 100x1000 -hold -title 'Client' -e "./client.sh"
 
-
+#cleanup
+rm -rf server.sh
+rm -rf client.sh
 
 
 
