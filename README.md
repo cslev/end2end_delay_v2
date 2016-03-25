@@ -42,7 +42,7 @@ and compile them again via excecuting make again.
 
 There is no calculation at the end again, so only the average results of one execution are shown,
 the user himself/herself should conclude the results of the multiple executions (since there 
-could be outlier results, or some jitter due to some background process, etc.).
+could be outlier results, some jitters due to some background process, etc.).
 
 
 If you have no GUI/display manager, then modify start.sh accordingly, or set up your interfaces
@@ -54,7 +54,7 @@ $ sudo ./recv_eth server_iface number_of_packets
 recv_eth should know in advance how many packets will be received in order to preallocate memory
 for them and shorten the processing time
 
-Then, on another terminal, start the sender side:
+Then, in another terminal, start the sender side:
 
 $ sudo ./send_eth client_iface number_of_packets
 
