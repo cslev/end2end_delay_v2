@@ -46,8 +46,8 @@ could be outlier results, some jitters due to some background process, etc.).
 
 
 #USAGE without display manager
-If you have no GUI/display manager, then modify start.sh accordingly, or set up your interfaces
-manually, first start the reciever side:
+If you have no GUI/display manager, then modify start.sh accordingly; or set up your interfaces
+manually and start the reciever side first:
 
 $ sudo ./recv_eth server_iface number_of_packets
 
