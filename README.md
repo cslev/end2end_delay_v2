@@ -18,6 +18,7 @@ In a real-time OS, this application probably works more precise
 
 #Compiling
 There is no special library needed, so simply type:
+
 $ make
 
 This will produce two binaries send_eth, and recv_eth, however, you don't have to use
@@ -48,6 +49,8 @@ If you have no GUI/display manager, then modify start.sh accordingly, or set up 
 manually, first start the reciever side:
 
 $ sudo ./recv_eth server_iface number_of_packets
+
+
 recv_eth should know in advance how many packets will be received in order to preallocate memory
 for them and shorten the processing time
 
