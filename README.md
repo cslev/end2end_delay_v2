@@ -24,7 +24,7 @@ $ make
 This will produce two binaries send_eth, and recv_eth, however, you don't have to use
 them manually. See below for more details.
 
-#USAGE:
+#USAGE with display manager
 $ sudo start.sh iface_sender iface_reciever number_of_packets number_of_executions
 
 The number_of_packets denotes how many packets wanted to be sent out, while
@@ -45,6 +45,7 @@ the user himself/herself should conclude the results of the multiple executions 
 could be outlier results, some jitters due to some background process, etc.).
 
 
+#USAGE without display manager
 If you have no GUI/display manager, then modify start.sh accordingly, or set up your interfaces
 manually, first start the reciever side:
 
