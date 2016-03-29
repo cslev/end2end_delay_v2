@@ -213,19 +213,13 @@ int main(int argc, char *argv[])
 		num_packets = NUM_PACKETS;
 	}	
 	
-	//~ num_packets++;
-	
+
 	//malloc memory for the int arrays of timestamps
 	sent_seconds_array = new uint64_t[num_packets];
 	sent_useconds_array = new uint64_t[num_packets];
 	recv_seconds_array = new uint64_t[num_packets];
 	recv_useconds_array = new uint64_t[num_packets];
 	
-	//~ /* Get interface name */
-	//~ if (argc > 1)
-		//~ strcpy(ifName, argv[1]);
-	//~ else
-		//~ strcpy(ifName, DEFAULT_IF);
 
 	/* Header structures */
 	struct ether_header *eh = (struct ether_header *) buf;
@@ -282,13 +276,13 @@ int main(int argc, char *argv[])
 				//Correct destination MAC address
 				//parsing remaining data
 				
-				//the next 8 bytes represent the senders MAC, we don't care 
+				//the next 8 digits represent the senders MAC, we don't care 
 				//about this ether_dhost[6-7-8-9-10-11]
-				//the next 4 bytes represent ether type, we don't care 
+				//the next 4 digits represent ether type, we don't care 
 				//about this ether_dhost[12-13]
 				
-				//now, comes the packet counter in 8-bytes, convert all 2-byte parts
-				//to string and then concatenate them
+				//now, comes the packet counter in 8 digits, convert all 2-digit
+				//parts to string and then concatenate them
 				
 				int packetCount = createIntFromPayload(buf[14],
 																							 buf[15],
@@ -351,8 +345,10 @@ int main(int argc, char *argv[])
 
   shutdown(sockfd,0);
  
+  //let's calculate the delay
 	get_delay_data();
   
+  //free data arrays
   delete [] sent_seconds_array;
   delete [] sent_useconds_array;
   delete [] recv_seconds_array;

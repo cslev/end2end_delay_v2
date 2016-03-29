@@ -126,10 +126,10 @@ int main(int argc, char *argv[])
 		//     DST MAC           SRC MAC           ETH_TYPE
 		//Data:01:02:03:04:05:06:40:f2:e9:0e:39:16:08:00
 		
-	
+		//every further data will be coded in 8 hex digits
 	
 		//in order to identify packets, we encode a counter into the payload
-		//as well as 4 hex digits after ether type
+		//as well as 8 hex digits after ether type
 		int pc = n; //packetcount
 		string packetCount = convertInt2HexString(pc,8);
 		if(DEBUG)
@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
 		char pcArray[sizeof(packetCount)];
 		strncpy(pcArray,packetCount.c_str(), sizeof(pcArray));
 		// --- packetcount ----
-		//Getting 2byte parts of the hex string and concatenate the 2byte
+		//Getting 2 digits of the hex string and concatenate the 2-digit
 		//hex numbers to the packet data (sendbuf)
 		for (int i=0; i<sizeof(pcArray); i=i+2)
 		{	
@@ -151,7 +151,7 @@ int main(int argc, char *argv[])
 			//DATA should look like this
 			//     DST MAC          :SRC MAC          :ETH_TYPE:COUNT
 			//Data:01:02:03:04:05:06:40:f2:e9:0e:39:16:08:00   :00:00:00:01
-			//since strings are 8-byte longs	
+				
 		}
 
 		//for timestamps
@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
 		
 		
 		// --- SECs ----
-		//Getting 2byte parts of the hex string and concatenate the 2byte
+		//Getting 2 digits of the hex string and concatenate the 2-digit
 		//hex numbers to the packet data (sendbuf)
 		for (int i=0; i<sizeof(secArray); i=i+2)
 		{	
@@ -207,9 +207,15 @@ int main(int argc, char *argv[])
 			s >> hex >> c; //convert string hex to int hex
 			sendbuf[tx_len++] = c; //append int hex to data (sendbuf)
 		}
+		//DATA should look like this
+		//     DST MAC          :SRC MAC          :ETH_TYPE:COUNT
+		//Data:01:02:03:04:05:06:40:f2:e9:0e:39:16:08:00   :00:00:00:01  +
+		//:SECONDS    
+		//:56:fd:32:11
+			
 		
 		// --- uSECs ----
-		//Getting 2byte parts of the hex string and concatenate the 2byte
+		//Getting 2 digits of the hex string and concatenate the 2-digit
 		//hex numbers to the packet data (sendbuf)
 		for (int i=0; i<sizeof(usecArray); i=i+2)
 		{	
@@ -218,10 +224,15 @@ int main(int argc, char *argv[])
 			int c; //int variable to store that hex number in int
 			s >> hex >> c; //convert string hex to int hex
 			sendbuf[tx_len++] = c; //append int hex to data (sendbuf)
-		}	
+		}
+		//DATA should look like this
+		//     DST MAC          :SRC MAC          :ETH_TYPE:COUNT
+		//Data:01:02:03:04:05:06:40:f2:e9:0e:39:16:08:00   :00:00:00:01  +
+		//:SECONDS     :USECONDS
+		//:56:fd:32:11 :00:34:aa:3s	
 		
 		// ---- END OF STREAM HANDLING ----
-		// we send a simple integer in 8-byte hex (again) to indicate end of 
+		// we send a simple integer in 8-digit hex (again) to indicate end of 
 		// stream. If that integer is 1, then that packet was the last,
 		// otherwise, it is not
 		//create another char array of the end_of_stream in hex	
@@ -236,6 +247,11 @@ int main(int argc, char *argv[])
 			s >> hex >> c; //convert string hex to int hex
 			sendbuf[tx_len++] = c; //append int hex to data (sendbuf)
 		}	
+		//DATA should look like this
+		//     DST MAC          :SRC MAC          :ETH_TYPE:COUNT
+		//Data:01:02:03:04:05:06:40:f2:e9:0e:39:16:08:00   :00:00:00:01  +
+		//:SECONDS     :USECONDS    :END_OF_STREAM
+		//:56:fd:32:11 :00:34:aa:3s :00:00:00:01 or 00:00:00:00
 		
 		// =====================================================
 
