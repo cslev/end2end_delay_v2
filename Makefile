@@ -1,5 +1,5 @@
 CC=g++
-GDB=-ggdb -O0
+GDB=-ggdb -O3
 TARGET=send_eth recv_eth
 all: $(TARGET)
 
